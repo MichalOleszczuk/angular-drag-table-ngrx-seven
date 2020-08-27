@@ -20,7 +20,9 @@ export function storageMetaReducer<S, A extends Action = Action>(
     if (onInit) {
       onInit = false;
       const savedState = getSavedState(localStorageKey);
-      return savedState;
+      if (!!savedState) {
+        return savedState;
+      }
     }
 
     setSavedState(nextState, localStorageKey);
