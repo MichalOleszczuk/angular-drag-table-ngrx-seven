@@ -21,7 +21,9 @@ export class ResourcesEffects {
     mergeMap(({ payload }) =>
       this.resourcesService.getPeriodicElements(payload).pipe(
         map((response) => getResourcesSuccessAction(response)),
-        catchError((error) => of(getResourcesFailedAction({ error }))),
+        catchError((error) =>
+          of(getResourcesFailedAction({ error: error.message }))
+        ),
         // INFO: delay just to see spinner.
         delay(3000)
       )

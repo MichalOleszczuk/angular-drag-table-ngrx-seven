@@ -20,6 +20,7 @@ export const defaultResourcesState: IResourcesReducer = {
     limit: 10,
   },
   resourcesInrogress: false,
+  errorMessage: "",
 };
 
 export function resourcesReducer(
@@ -73,13 +74,17 @@ export function resourcesReducer(
         resourcesList: data,
         filteredResourcesList: sortResourcesList(data, state.sorting),
         pagination: { ...state.pagination, count, page, pageCount },
+        errorMessage: "",
       };
     }
 
     case RESOURCES_ACTION_TYPES.GET_RESOURCES_FAILED: {
+      const { error } = action.payload;
+
       return {
         ...state,
         resourcesInrogress: false,
+        errorMessage: error,
       };
     }
 

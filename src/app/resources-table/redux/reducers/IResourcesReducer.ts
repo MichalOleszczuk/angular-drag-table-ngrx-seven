@@ -7,6 +7,7 @@ export interface IResourcesReducer {
   sorting: ISorting;
   resourcesInrogress: boolean;
   pagination: IPagination;
+  errorMessage: string;
 }
 
 export interface IPagination {

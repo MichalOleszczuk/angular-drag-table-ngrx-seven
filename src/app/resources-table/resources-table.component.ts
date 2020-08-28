@@ -36,7 +36,6 @@ export class ResourcesTableComponent implements OnInit {
       this.sorting = resourcesSytate.sorting;
       this.seatchQuery = resourcesSytate.seatchQuery;
       this.resourcesInrogress = resourcesSytate.resourcesInrogress;
-      console.log('siema', resourcesSytate.pagination)
       this.pagination = resourcesSytate.pagination;
     });
   }
