@@ -1,54 +1,61 @@
-<form class="search-form">
-  <mat-form-field class="search-full-width">
-    <mat-label>Search</mat-label>
-    <input
-      matInput
-      placeholder="Multi search"
-      [value]="seatchQuery"
-      (blur)="onChangeSearch($event.target.value)"
-    />
-  </mat-form-field>
-</form>
-<table
-  cdk-table
-  [dataSource]="dataSource"
-  cdkDropListGroup
-  class="mat-elevation-z8"
->
-  <ng-container
-    *ngFor="let column of columns; let i = index"
-    [cdkColumnDef]="column.field"
+<div *ngIf="!resourcesInrogress; else spinner">
+  <form class="search-form">
+    <mat-form-field class="search-full-width">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        placeholder="Multi search"
+        [value]="seatchQuery"
+        (blur)="onChangeSearch($event.target.value)"
+      />
+    </mat-form-field>
+  </form>
+  <table
+    cdk-table
+    [dataSource]="dataSource"
+    cdkDropListGroup
+    class="mat-elevation-z8"
   >
-    <th
-      class="border"
-      cdk-header-cell
-      *cdkHeaderCellDef
-      cdkDropList
-      cdkDropListLockAxis="x"
-      cdkDropListOrientation="horizontal"
-      (cdkDropListDropped)="dropListDropped($event, i)"
-      cdkDrag
-      (cdkDragStarted)="dragStarted($event, i)"
-      [cdkDragData]="{ name: column.field, columIndex: i }"
+    <ng-container
+      *ngFor="let column of columns; let i = index"
+      [cdkColumnDef]="column.field"
     >
-      <div
-        class="d-flex justify-content-between pointer p-2"
-        (click)="onThClick(column.field)"
+      <th
+        class="border"
+        cdk-header-cell
+        *cdkHeaderCellDef
+        cdkDropList
+        cdkDropListLockAxis="x"
+        cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="dropListDropped($event, i)"
+        cdkDrag
+        (cdkDragStarted)="dragStarted($event, i)"
+        [cdkDragData]="{ name: column.field, columIndex: i }"
       >
-        <div class="d-flex align-items-center">
-          {{ column.field }}
+        <div
+          class="d-flex justify-content-between pointer p-2"
+          (click)="onThClick(column.field)"
+        >
+          <div class="d-flex align-items-center">
+            {{ column.field }}
+          </div>
+          <div class="d-flex align-items-center">
+            <mat-icon aria-hidden="false" aria-label="sorting icon"
+              >keyboard_arrow_down</mat-icon
+            >
+          </div>
         </div>
-        <div class="d-flex align-items-center">
-          <mat-icon aria-hidden="false" aria-label="sorting icon"
-            >keyboard_arrow_down</mat-icon
-          >
-        </div>
-      </div>
-    </th>
-    <td cdk-cell class="border p-2" *cdkCellDef="let row">
-      {{ row[column.field] }}
-    </td>
-  </ng-container>
-  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
-</table>
+      </th>
+      <td cdk-cell class="border p-2" *cdkCellDef="let row">
+        {{ row[column.field] }}
+      </td>
+    </ng-container>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<ng-template #spinner>
+  <div class="d-flex justify-content-center align-items-center">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

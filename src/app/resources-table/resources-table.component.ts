@@ -6,12 +6,14 @@ import {
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { IAppState } from "../redux/reducers/rootReducer";
+import { IPeriodicElement } from "../services/resources/interfaces/IResources";
 import { ResourcesListDataSource } from "./data/ResourcesListDataSource";
 import {
   changeSearchQueryAction,
+  getResourcesAction,
   setSortingAction,
 } from "./redux/actions/ResourcesActions";
-import { ISorting, PeriodicElement } from "./redux/reducers/IResourcesReducer";
+import { IPagination, ISorting } from "./redux/reducers/IResourcesReducer";
 import { resourcesSelector } from "./redux/selectors/resourcesSelectors";
 
 @Component({
@@ -23,6 +25,8 @@ export class ResourcesTableComponent implements OnInit {
   dataSource: ResourcesListDataSource;
   sorting: ISorting;
   seatchQuery: string;
+  resourcesInrogress: boolean;
+  pagination: IPagination;
 
   constructor(private store: Store<IAppState>) {
     this.store.select(resourcesSelector).subscribe((resourcesSytate) => {
@@ -31,6 +35,9 @@ export class ResourcesTableComponent implements OnInit {
       );
       this.sorting = resourcesSytate.sorting;
       this.seatchQuery = resourcesSytate.seatchQuery;
+      this.resourcesInrogress = resourcesSytate.resourcesInrogress;
+      console.log('siema', resourcesSytate.pagination)
+      this.pagination = resourcesSytate.pagination;
     });
   }
 
@@ -45,6 +52,7 @@ export class ResourcesTableComponent implements OnInit {
   previousIndex: number;
 
   ngOnInit(): void {
+    this.store.dispatch(getResourcesAction(this.pagination));
     this.setDisplayedColumns();
   }
 
@@ -66,7 +74,7 @@ export class ResourcesTableComponent implements OnInit {
     }
   }
 
-  onThClick(fieldName: keyof PeriodicElement): void {
+  onThClick(fieldName: keyof IPeriodicElement): void {
     this.store.dispatch(
       setSortingAction({ field: fieldName, asc: !this.sorting[fieldName].asc })
     );

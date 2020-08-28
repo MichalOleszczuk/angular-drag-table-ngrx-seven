@@ -1,10 +1,11 @@
-import { ISorting, PeriodicElement } from "./IResourcesReducer";
+import { IPeriodicElement } from "src/app/services/resources/interfaces/IResources";
+import { ISorting } from "./IResourcesReducer";
 
 export function sortResourcesList(
-  resourcesList: Array<PeriodicElement>,
+  resourcesList: Array<IPeriodicElement>,
   sorting: ISorting
 ) {
-  function sortResources(element1: PeriodicElement, element2: PeriodicElement) {
+  function sortResources(element1: IPeriodicElement, element2: IPeriodicElement) {
     const objectEntities = Object.entries(sorting);
 
     for (const [sortKey, sort] of objectEntities) {
@@ -30,7 +31,7 @@ export function sortResourcesList(
 }
 
 export function filterResources(
-  resources: Array<PeriodicElement>,
+  resources: Array<IPeriodicElement>,
   searchQuery: string
 ) {
   return resources.filter((resource) => {

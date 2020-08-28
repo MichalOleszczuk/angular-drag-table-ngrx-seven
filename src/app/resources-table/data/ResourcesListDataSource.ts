@@ -1,18 +1,18 @@
-import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { PeriodicElement } from '../redux/reducers/IResourcesReducer';
+import { DataSource } from "@angular/cdk/collections";
+import { BehaviorSubject, Observable } from "rxjs";
+import { IPeriodicElement } from "src/app/services/resources/interfaces/IResources";
 
-export class ResourcesListDataSource extends DataSource<PeriodicElement> {
+export class ResourcesListDataSource extends DataSource<IPeriodicElement> {
   /** Stream of data that is provided to the table. */
-  data: BehaviorSubject<PeriodicElement[]>;
+  data: BehaviorSubject<IPeriodicElement[]>;
 
-  constructor(resourcesList: PeriodicElement[]) {
+  constructor(resourcesList: IPeriodicElement[]) {
     super();
-    this.data = new BehaviorSubject<PeriodicElement[]>(resourcesList);
+    this.data = new BehaviorSubject<IPeriodicElement[]>(resourcesList);
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<PeriodicElement[]> {
+  connect(): Observable<IPeriodicElement[]> {
     return this.data;
   }
 
