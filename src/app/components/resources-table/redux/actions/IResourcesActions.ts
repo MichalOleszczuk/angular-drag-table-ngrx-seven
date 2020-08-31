@@ -2,7 +2,7 @@ import {
   IBackEndResponse,
   IPeriodicElement,
 } from "src/app/services/resources/interfaces/IResources";
-import { IActionPayload } from "../../../services/CreateAction";
+import { IActionPayload } from "../../../../services/CreateAction";
 import { RESOURCES_ACTION_TYPES } from "./resourcesListActionTypes";
 
 export type IResourcesActions =

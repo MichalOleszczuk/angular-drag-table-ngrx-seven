@@ -11,13 +11,14 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AppComponent } from "./app.component";
+import { ResourcesEffects } from "./components/resources-table/redux/effects/ResourcesEffects";
+import { storageMetaReducer } from "./components/resources-table/redux/reducers/storageMetaReducer";
+import { ResourcesTableComponent } from "./components/resources-table/resources-table.component";
+import { SeatchBoxComponent } from "./components/seatch-box/seatch-box.component";
 import { rootReducer } from "./redux/reducers/rootReducer";
-import { ResourcesEffects } from "./resources-table/redux/effects/ResourcesEffects";
-import { storageMetaReducer } from "./resources-table/redux/reducers/storageMetaReducer";
-import { ResourcesTableComponent } from "./resources-table/resources-table.component";
 
 @NgModule({
-  declarations: [AppComponent, ResourcesTableComponent],
+  declarations: [AppComponent, ResourcesTableComponent, SeatchBoxComponent],
   imports: [
     CdkTableModule,
     DragDropModule,

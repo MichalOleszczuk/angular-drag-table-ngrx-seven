@@ -1,15 +1,5 @@
 <div *ngIf="!resourcesInrogress; else spinner">
-  <form class="search-form">
-    <mat-form-field class="search-full-width">
-      <mat-label>Search</mat-label>
-      <input
-        matInput
-        placeholder="Multi search"
-        [value]="seatchQuery"
-        (blur)="onChangeSearch($event.target.value)"
-      />
-    </mat-form-field>
-  </form>
+  <app-seatch-box></app-seatch-box>
   <table
     cdk-table
     [dataSource]="dataSource"

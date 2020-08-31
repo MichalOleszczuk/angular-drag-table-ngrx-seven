@@ -5,11 +5,10 @@ import {
 } from "@angular/cdk/drag-drop";
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { IAppState } from "../redux/reducers/rootReducer";
-import { IPeriodicElement } from "../services/resources/interfaces/IResources";
+import { IAppState } from "../../redux/reducers/rootReducer";
+import { IPeriodicElement } from "../../services/resources/interfaces/IResources";
 import { ResourcesListDataSource } from "./data/ResourcesListDataSource";
 import {
-  changeSearchQueryAction,
   getResourcesAction,
   setSortingAction,
 } from "./redux/actions/ResourcesActions";
@@ -24,7 +23,6 @@ import { resourcesSelector } from "./redux/selectors/resourcesSelectors";
 export class ResourcesTableComponent implements OnInit {
   dataSource: ResourcesListDataSource;
   sorting: ISorting;
-  seatchQuery: string;
   resourcesInrogress: boolean;
   pagination: IPagination;
 
@@ -34,17 +32,16 @@ export class ResourcesTableComponent implements OnInit {
         resourcesSytate.filteredResourcesList
       );
       this.sorting = resourcesSytate.sorting;
-      this.seatchQuery = resourcesSytate.seatchQuery;
       this.resourcesInrogress = resourcesSytate.resourcesInrogress;
       this.pagination = resourcesSytate.pagination;
     });
   }
 
-  columns: any[] = [
-    { field: "position" },
-    { field: "name" },
-    { field: "weight" },
-    { field: "symbol" },
+  columns: Array<{ field: keyof IPeriodicElement; index: number }> = [
+    { field: "position", index: 0 },
+    { field: "name", index: 1 },
+    { field: "weight", index: 2 },
+    { field: "symbol", index: 3 },
   ];
   displayedColumns: string[] = [];
 
@@ -77,9 +74,5 @@ export class ResourcesTableComponent implements OnInit {
     this.store.dispatch(
       setSortingAction({ field: fieldName, asc: !this.sorting[fieldName].asc })
     );
-  }
-
-  onChangeSearch(searchQuery: string): void {
-    this.store.dispatch(changeSearchQueryAction({ searchQuery }));
   }
 }

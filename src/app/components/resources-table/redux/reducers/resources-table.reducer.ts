@@ -72,7 +72,10 @@ export function resourcesReducer(
         ...state,
         resourcesInrogress: false,
         resourcesList: data,
-        filteredResourcesList: sortResourcesList(data, state.sorting),
+        filteredResourcesList: sortResourcesList(
+          filterResources(data, state.seatchQuery),
+          state.sorting
+        ),
         pagination: { ...state.pagination, count, page, pageCount },
         errorMessage: "",
       };
