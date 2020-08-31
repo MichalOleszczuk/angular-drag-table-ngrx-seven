@@ -1,0 +1,20 @@
+<div
+  *ngIf="sampleAsyncPipe$ | async as sampleAsyncPipe"
+  class="d-flex justify-content-center align-items-center w-100 p-3"
+>
+  <div *ngIf="!sampleAsyncPipe.resourcesInrogress; else spinner">
+    <h3>Async Pipe</h3>
+    <p>Raw elements count: {{ sampleAsyncPipe.resourcesList.length }}</p>
+    <ul>
+      <li *ngFor="let element of sampleAsyncPipe.resourcesList; index as i">
+        {{ i + 1 }}. Name: {{ element.name }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #spinner>
+  <div class="d-flex justify-content-center align-items-center">
+    They see me loading....
+  </div>
+</ng-template>

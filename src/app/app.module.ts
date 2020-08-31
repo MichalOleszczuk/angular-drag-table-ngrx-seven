@@ -16,9 +16,10 @@ import { storageMetaReducer } from "./components/resources-table/redux/reducers/
 import { ResourcesTableComponent } from "./components/resources-table/resources-table.component";
 import { SeatchBoxComponent } from "./components/seatch-box/seatch-box.component";
 import { rootReducer } from "./redux/reducers/rootReducer";
+import { SampleAsyncPipeComponent } from './components/sample-async-pipe/sample-async-pipe.component';
 
 @NgModule({
-  declarations: [AppComponent, ResourcesTableComponent, SeatchBoxComponent],
+  declarations: [AppComponent, ResourcesTableComponent, SeatchBoxComponent, SampleAsyncPipeComponent],
   imports: [
     CdkTableModule,
     DragDropModule,
