@@ -17,9 +17,10 @@ import { ResourcesTableComponent } from "./components/resources-table/resources-
 import { SeatchBoxComponent } from "./components/seatch-box/seatch-box.component";
 import { rootReducer } from "./redux/reducers/rootReducer";
 import { SampleAsyncPipeComponent } from './components/sample-async-pipe/sample-async-pipe.component';
+import { ResizerDirective } from './resizer.directive';
 
 @NgModule({
-  declarations: [AppComponent, ResourcesTableComponent, SeatchBoxComponent, SampleAsyncPipeComponent],
+  declarations: [AppComponent, ResourcesTableComponent, SeatchBoxComponent, SampleAsyncPipeComponent, ResizerDirective],
   imports: [
     CdkTableModule,
     DragDropModule,

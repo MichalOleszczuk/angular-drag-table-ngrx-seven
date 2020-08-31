@@ -1,20 +1,26 @@
 <div
   *ngIf="sampleAsyncPipe$ | async as sampleAsyncPipe"
-  class="d-flex justify-content-center align-items-center w-100 p-3"
+  class="d-flex justify-content-center align-items-center p-3 grabarea overflow-hidden"
+  contenteditable="true"
 >
   <div *ngIf="!sampleAsyncPipe.resourcesInrogress; else spinner">
-    <h3>Async Pipe</h3>
-    <p>Raw elements count: {{ sampleAsyncPipe.resourcesList.length }}</p>
-    <ul>
-      <li *ngFor="let element of sampleAsyncPipe.resourcesList; index as i">
-        {{ i + 1 }}. Name: {{ element.name }}
-      </li>
-    </ul>
+    <div
+      class="d-flex justify-content-center align-items-center w-100 flex-column"
+    >
+      <h3>Async Pipe</h3>
+      <p>Raw elements count: {{ sampleAsyncPipe.resourcesList.length }}</p>
+      <ul [ngStyle]="{ position: absolute }">
+        <li *ngFor="let element of sampleAsyncPipe.resourcesList; index as i">
+          {{ i + 1 }}. Name: {{ element.name }}
+        </li>
+      </ul>
+    </div>
   </div>
+  <div class="grabber" resizer contenteditable="false"></div>
 </div>
 
 <ng-template #spinner>
-  <div class="d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-center align-items-center p-3">
     They see me loading....
   </div>
 </ng-template>

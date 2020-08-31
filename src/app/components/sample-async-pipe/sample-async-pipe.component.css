@@ -1,3 +1,26 @@
 :host {
   width: 100%;
 }
+
+.grabarea {
+  min-height: 150px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  position: relative;
+  width: 100%;
+  float: right;
+}
+
+.grabarea .grabber {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-right: -15px;
+  cursor: ew-resize;
+  height: 100%;
+  width: 5px;
+  border-top: 1px solid #444;
+  overflow: hidden;
+  background-color: #444;
+}

@@ -20,6 +20,5 @@ export class SampleAsyncPipeComponent implements OnInit {
 
   ngOnInit() {
     this.sampleAsyncPipe$ = this.store.select(sampleAsyncPipeSelector);
-    this.sampleAsyncPipe$.subscribe((siema) => console.log("siema", siema));
   }
 }
