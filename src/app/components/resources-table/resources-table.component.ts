@@ -5,6 +5,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 import { IAppState } from "../../redux/reducers/rootReducer";
 import { IPeriodicElement } from "../../services/resources/interfaces/IResources";
 import { ResourcesListDataSource } from "./data/ResourcesListDataSource";
@@ -13,7 +14,7 @@ import {
   setSortingAction,
 } from "./redux/actions/ResourcesActions";
 import { IPagination, ISorting } from "./redux/reducers/IResourcesReducer";
-import { resourcesSelector } from "./redux/selectors/resourcesSelectors";
+import { resourcesTableSelector } from "./redux/selectors/resourcesSelectors";
 
 @Component({
   selector: "app-resources-table",
@@ -24,18 +25,10 @@ export class ResourcesTableComponent implements OnInit {
   dataSource: ResourcesListDataSource;
   sorting: ISorting;
   resourcesInrogress: boolean;
+  subscriptions: Subscription[] = [];
   pagination: IPagination;
 
-  constructor(private store: Store<IAppState>) {
-    this.store.select(resourcesSelector).subscribe((resourcesSytate) => {
-      this.dataSource = new ResourcesListDataSource(
-        resourcesSytate.filteredResourcesList
-      );
-      this.sorting = resourcesSytate.sorting;
-      this.resourcesInrogress = resourcesSytate.resourcesInrogress;
-      this.pagination = resourcesSytate.pagination;
-    });
-  }
+  constructor(private store: Store<IAppState>) {}
 
   columns: Array<{ field: keyof IPeriodicElement; index: number }> = [
     { field: "position", index: 0 },
@@ -48,8 +41,23 @@ export class ResourcesTableComponent implements OnInit {
   previousIndex: number;
 
   ngOnInit(): void {
+    const resourcesTable$ = this.store.select(resourcesTableSelector);
+    const resourcesTableSub = resourcesTable$.subscribe((resourcesTable) => {
+      this.resourcesInrogress = resourcesTable.resourcesInrogress;
+      this.sorting = resourcesTable.sorting;
+      this.pagination = resourcesTable.pagination;
+      this.dataSource = new ResourcesListDataSource(
+        resourcesTable.filteredResourcesList
+      );
+    });
+    this.subscriptions.push(resourcesTableSub);
+
     this.store.dispatch(getResourcesAction(this.pagination));
     this.setDisplayedColumns();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   setDisplayedColumns(): void {
